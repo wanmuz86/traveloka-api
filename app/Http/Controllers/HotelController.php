@@ -57,4 +57,20 @@ class HotelController extends Controller
             "message"=>"Succesfully deleted"
         ]);
     }
+
+    public function hotelCheapRoom(Request $request){
+        $minPrice = 150;
+        if ($request->input('price')){
+            $minPrice = $request->input('price');
+        }
+
+        $hotels = Hotel::with(['rooms' => function ($query) use ($minPrice){
+            // Query di dalam rooms/ relation
+            $query->where('price','<',$minPrice );
+        }])->get();
+        return response()->json([
+            'status'=>true,
+            "data"=>$hotels
+        ]);
+    }
 }

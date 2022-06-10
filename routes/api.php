@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HotelController;
+use App\Http\Controllers\RoomController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,5 +24,13 @@ Route::get('/hotels',[HotelController::class,'index']);
 Route::get('/hotels/{id}',[HotelController::class, 'get']);
 Route::put('/hotels/{id}',[HotelController::class,'update']);
 Route::delete('/hotels/{id}',[HotelController::class,'delete']);
+// Pulangkan hotel, dan bilik yang di bawah RM 200 untuk setiap hotel -> Doing query in relation
+Route::get('/hotels-with-cheap-room',[HotelController::class,'hotelCheapRoom']);
+
+Route::post('/hotels/{hotel_id}/rooms', [RoomController::class,'create']);
+Route::get('/hotels/{hotel_id}/rooms',[RoomController::class, 'index']);
+Route::get('/hotels/{hotel_id}/rooms/{room_id}',[RoomController::class,'get']);
+Route::put('/hotels/{hotel_id}/rooms/{room_id}',[RoomController::class, 'update']);
+Route::delete('/hotels/{hotel_id}/rooms/{room_id}',[RoomController::class,'delete']);
 
 
