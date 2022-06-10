@@ -18,6 +18,8 @@ class HotelController extends Controller
         $newhotel->pic_url = $request->pic_url;
         $newhotel->policy = $request->policy;
         $newhotel->save();
+        // Create a many to many relationship in facilities
+        $newhotel->facilities()->attach($request->facilities);
         return response()->json([
             'status'=>true,
             'data'=>$newhotel
@@ -43,6 +45,11 @@ class HotelController extends Controller
     public function update($id,Request $request){
         $hotel = Hotel::find($id);
         $hotel->update($request->all());
+        if ($request->facilities){
+            // Buang facilities lama lama
+            $hotel->facilities()->detach();
+            $hotel->facilities()->attach($request->facilities);
+        }
         return response()->json([
             'status'=>true,
             'data'=>$hotel

@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\FacilityController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -33,4 +34,8 @@ Route::get('/hotels/{hotel_id}/rooms/{room_id}',[RoomController::class,'get']);
 Route::put('/hotels/{hotel_id}/rooms/{room_id}',[RoomController::class, 'update']);
 Route::delete('/hotels/{hotel_id}/rooms/{room_id}',[RoomController::class,'delete']);
 
+Route::post('/facilities', [FacilityController::class,'create']);
+Route::get('/facilities', [FacilityController::class,'index']);
+
+Route::get('/facilities/{facility_id}/hotels',[FacilityController::class,'getHotels']);
 
