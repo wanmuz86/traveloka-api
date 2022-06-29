@@ -19,6 +19,6 @@ class Hotel extends Model
         return $this->hasMany(Review::class);
     }
     public function facilities(){
-        return $this->belongsToMany(Facility::class);
+        return $this->belongsToMany(Facility::class,'facilities_hotels');
     }
 }
